@@ -18,11 +18,11 @@ const Partners = () => {
             </div>
 
             <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] group">
-                <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+                <ul className="flex items-center justify-center md:justify-start [&_li]:mx-16 [&_img]:max-w-none animate-infinite-scroll">
                     {partners.map((partner, index) => {
-                        let sizeClass = "h-16 w-32 md:w-40";
-                        if (partner.name === 'DHL') sizeClass = "h-[90px] w-auto md:w-60";
-                        if (partner.name === 'Estafeta') sizeClass = "h-[120px] w-auto md:w-80";
+                        let sizeClass = "h-[69px] w-auto";
+                        if (partner.name === 'DHL') sizeClass = "h-[97px] w-auto";
+                        if (partner.name === 'Estafeta') sizeClass = "h-[130px] w-auto";
                         if (partner.name === 'Paquetexpress' || partner.name === 'Redpack') sizeClass += " pr-12";
 
                         return (
@@ -36,11 +36,11 @@ const Partners = () => {
                         );
                     })}
                 </ul>
-                <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
+                <ul className="flex items-center justify-center md:justify-start [&_li]:mx-16 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
                     {partners.map((partner, index) => {
-                        let sizeClass = "h-16 w-32 md:w-40";
-                        if (partner.name === 'DHL') sizeClass = "h-[90px] w-auto md:w-60";
-                        if (partner.name === 'Estafeta') sizeClass = "h-[120px] w-auto md:w-80";
+                        let sizeClass = "h-[69px] w-auto";
+                        if (partner.name === 'DHL') sizeClass = "h-[97px] w-auto";
+                        if (partner.name === 'Estafeta') sizeClass = "h-[130px] w-auto";
                         if (partner.name === 'Paquetexpress' || partner.name === 'Redpack') sizeClass += " pr-12";
 
                         return (

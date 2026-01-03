@@ -34,14 +34,27 @@ const ContactForm = () => {
         setIsLoading(true);
         setStatus('idle');
 
+        // Create abort controller for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
         try {
-            const response = await fetch('https://n8n.enviox.mx/webhook-test/a340271a-ad8d-42de-a525-8d2780930c10', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
+            // Build query parameters from form data
+            const params = new URLSearchParams({
+                name: formData.name,
+                company: formData.company,
+                phone: formData.phone,
+                email: formData.email,
+                needs: formData.needs,
+                budget: formData.budget
             });
+
+            const response = await fetch(`https://n8n.enviox.mx/webhook/a340271a-ad8d-42de-a525-8d2780930c10?${params.toString()}`, {
+                method: 'GET',
+                signal: controller.signal
+            });
+
+            clearTimeout(timeoutId);
 
             if (response.ok) {
                 setStatus('success');
@@ -57,7 +70,14 @@ const ContactForm = () => {
                 setStatus('error');
             }
         } catch (error) {
-            console.error(error);
+            clearTimeout(timeoutId);
+            console.error('Form submission error:', error);
+
+            // If it's an abort error (timeout), show specific message
+            if (error instanceof Error && error.name === 'AbortError') {
+                console.error('Request timed out');
+            }
+
             setStatus('error');
         } finally {
             setIsLoading(false);
@@ -75,11 +95,12 @@ const ContactForm = () => {
                 <div className="bg-white dark:bg-slate-800 p-8 md:p-12 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-slate-100 dark:border-slate-700">
                     {status === 'success' ? (
                         <div className="text-center py-10">
-                            <div className="w-20 h-20 bg-green-50 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Send className="w-8 h-8 text-green-600 dark:text-green-400" />
+                            <div className="w-20 h-20 bg-orange-50 dark:bg-orange-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <Send className="w-8 h-8 text-orange-500 dark:text-orange-400" />
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">¡Mensaje Enviado!</h3>
-                            <p className="text-slate-600 dark:text-slate-400 text-lg mb-8">Gracias por tu interés. Nos pondremos en contacto contigo a la brevedad posible.</p>
+                            <p className="text-slate-600 dark:text-slate-400 text-lg mb-2">Gracias por tu interés. Nos pondremos en contacto contigo a la brevedad posible.</p>
+                            <p className="text-orange-500 dark:text-orange-400 font-medium mb-8">Recibirás una llamada en un plazo de 24 a 48 horas.</p>
                             <button
                                 onClick={() => setStatus('idle')}
                                 className="text-orange-500 font-semibold hover:text-orange-600 transition-colors"
