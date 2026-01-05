@@ -17,6 +17,14 @@ const ThemeToggle = () => {
             root.classList.remove('dark');
         }
         localStorage.setItem('theme', theme);
+
+        // Actualizar favicon según el tema de la app
+        const favicon = document.getElementById('favicon') as HTMLLinkElement;
+        const appleTouchIcon = document.getElementById('apple-touch-icon') as HTMLLinkElement;
+        // Tema oscuro de la app = favicon claro, tema claro = favicon oscuro
+        const faviconPath = theme === 'dark' ? '/favicon-light.png' : '/favicon-dark.png';
+        if (favicon) favicon.href = faviconPath;
+        if (appleTouchIcon) appleTouchIcon.href = faviconPath;
     }, [theme]);
 
     const toggleTheme = () => {

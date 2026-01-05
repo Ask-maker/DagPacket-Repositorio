@@ -1,13 +1,33 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dagpacket</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" id="favicon" href="/favicon-dark.png" />
+  <link rel="apple-touch-icon" id="apple-touch-icon" href="/favicon-dark.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dagpacket</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  <script>
+    function updateFavicon() {
+      // Usar el tema guardado en localStorage (consistente con el ThemeToggle de la app)
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      const isDarkMode = savedTheme === 'dark';
+      const favicon = document.getElementById('favicon');
+      const appleTouchIcon = document.getElementById('apple-touch-icon');
+      // Tema oscuro de la app = favicon claro, tema claro = favicon oscuro
+      const faviconPath = isDarkMode ? '/favicon-light.png' : '/favicon-dark.png';
+      if (favicon) favicon.href = faviconPath;
+      if (appleTouchIcon) appleTouchIcon.href = faviconPath;
+    }
+    // Ejecutar inmediatamente y cuando el DOM esté listo
+    updateFavicon();
+    document.addEventListener('DOMContentLoaded', updateFavicon);
+  </script>
+</body>
+
 </html>

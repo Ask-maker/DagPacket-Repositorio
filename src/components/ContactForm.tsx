@@ -39,18 +39,19 @@ const ContactForm = () => {
         const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
         try {
-            // Build query parameters from form data
-            const params = new URLSearchParams({
-                name: formData.name,
-                company: formData.company,
-                phone: formData.phone,
-                email: formData.email,
-                needs: formData.needs,
-                budget: formData.budget
-            });
-
-            const response = await fetch(`https://n8n.enviox.mx/webhook/a340271a-ad8d-42de-a525-8d2780930c10?${params.toString()}`, {
-                method: 'GET',
+            const response = await fetch('https://n8n.enviox.mx/webhook/a340271a-ad8d-42de-a525-8d2780930c10', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    company: formData.company,
+                    phone: formData.phone,
+                    email: formData.email,
+                    needs: formData.needs,
+                    budget: formData.budget
+                }),
                 signal: controller.signal
             });
 

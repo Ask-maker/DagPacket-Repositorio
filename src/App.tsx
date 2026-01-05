@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import ThemeToggle from './components/ThemeToggle';
-import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
 
 function App() {
   return (
@@ -74,14 +74,11 @@ function App() {
             <div>
               <h4 className="font-bold text-slate-900 dark:text-white mb-4">Síguenos</h4>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-900 dark:hover:text-white transition-all">
+                <a href="https://www.facebook.com/profile.php?id=61578034804297" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-900 dark:hover:text-white transition-all">
                   <Facebook className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-900 dark:hover:text-white transition-all">
+                <a href="https://www.instagram.com/dagpacket_bethel/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-900 dark:hover:text-white transition-all">
                   <Instagram className="w-5 h-5" />
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-900 dark:hover:text-white transition-all">
-                  <Linkedin className="w-5 h-5" />
                 </a>
               </div>
             </div>

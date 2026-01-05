@@ -27,7 +27,7 @@ const Hero = () => {
                     {/* H1 Title */}
                     <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white mb-8 tracking-tight leading-[1.1]">
                         Simplifica tus envíos <br className="hidden md:block" />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-400 dark:from-orange-400 dark:to-orange-300">
+                        <span className="text-orange-500">
                             en un solo click
                         </span>
                     </h1>
