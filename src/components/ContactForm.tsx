@@ -39,25 +39,40 @@ const ContactForm = () => {
         const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
         try {
-            const response = await fetch('https://n8n.enviox.mx/webhook/a340271a-ad8d-42de-a525-8d2780930c10', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    company: formData.company,
-                    phone: formData.phone,
-                    email: formData.email,
-                    needs: formData.needs,
-                    budget: formData.budget
-                }),
-                signal: controller.signal
-            });
+            const formPayload = {
+                name: formData.name,
+                company: formData.company,
+                phone: formData.phone,
+                email: formData.email,
+                needs: formData.needs,
+                budget: formData.budget
+            };
+
+            // Enviar a ambos webhooks (producción y test)
+            const webhookUrls = [
+                'https://n8n.enviox.mx/webhook/a340271a-ad8d-42de-a525-8d2780930c10',
+                'https://n8n.enviox.mx/webhook-test/a340271a-ad8d-42de-a525-8d2780930c10'
+            ];
+
+            const responses = await Promise.all(
+                webhookUrls.map(url =>
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formPayload),
+                        signal: controller.signal
+                    }).catch(err => err) // Capturar errores individuales
+                )
+            );
 
             clearTimeout(timeoutId);
 
-            if (response.ok) {
+            // Verificar si al menos uno fue exitoso
+            const hasSuccess = responses.some(r => r instanceof Response && r.ok);
+
+            if (hasSuccess) {
                 setStatus('success');
                 setFormData({
                     name: '',
